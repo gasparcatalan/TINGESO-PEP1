@@ -1,7 +1,6 @@
-package repositories;
+package com.example.PEP1.repositories;
 
-import entities.ProveedorEntity;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.example.PEP1.entities.ProveedorEntity;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -15,6 +14,14 @@ public interface ProveedorRepository extends CrudRepository<ProveedorEntity, Lon
 
     @Query("select p from ProveedorEntity  p where p.nombre = :nombre")
     ProveedorEntity findByNameCustomQuery(@Param("nombre") String nombre);
+
+    @Query("select p from ProveedorEntity p where p.codigo =:codigo")
+    ProveedorEntity findProveedorByCodigo(@Param("codigo") Long codigo);
+    /*
+    *  proveedorRepository.finByNombre("")
+    *
+    *
+    * */
 
 
 }

@@ -1,10 +1,8 @@
-package entities;
+package com.example.PEP1.entities;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import org.hibernate.annotations.ManyToAny;
 
 import java.util.Date;
 
@@ -21,9 +19,9 @@ public class AcopioEntity {
     @Column (unique = true, nullable = false)
     private Long id_acopio;
 
-
-
-    private String nombre;
+    private Double kls_leche;
+    private String turno;
+    private Long codigo_proveedor;
     private Date fecha;
 
     @ManyToOne

@@ -1,10 +1,10 @@
-package services;
+package com.example.PEP1.services;
 
 
-import entities.ProveedorEntity;
+import com.example.PEP1.entities.ProveedorEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import repositories.ProveedorRepository;
+import com.example.PEP1.repositories.ProveedorRepository;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -19,7 +19,17 @@ public class ProveedorService {
     }
 
     public ProveedorEntity guardarProveedor(ProveedorEntity proveedor){
+
         return proveedorRepository.save(proveedor);
+    }
+
+    public void crearProveedor(Long codigo,String nombre, String categoria, String retencion) {
+        ProveedorEntity temp_proveedor = new ProveedorEntity();
+        temp_proveedor.setCodigo(codigo);
+        temp_proveedor.setNombre(nombre);
+        temp_proveedor.setCategoria(categoria);
+        temp_proveedor.setRetencion(retencion);
+        proveedorRepository.save(temp_proveedor);
     }
 
     public Optional<ProveedorEntity> obtenerPorId(Long id){

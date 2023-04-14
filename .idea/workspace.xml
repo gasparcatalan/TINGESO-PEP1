@@ -38,19 +38,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/Gaspar/Desktop/TINGESO-PEP1"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Gaspar/Desktop/TINGESO-PEP1&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;67dff64d7d7f562d3871f31a8dab2c4b&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="Pep1Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="PEP1" />
@@ -68,7 +69,14 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1680464983215</updated>
-      <workItem from="1680464986462" duration="12747000" />
+      <workItem from="1680464986462" duration="19575000" />
+      <workItem from="1680815964826" duration="507000" />
+      <workItem from="1680916230941" duration="8801000" />
+      <workItem from="1680931820835" duration="9632000" />
+      <workItem from="1681156765111" duration="8294000" />
+      <workItem from="1681273247010" duration="3502000" />
+      <workItem from="1681351400953" duration="12223000" />
+      <workItem from="1681437208092" duration="4230000" />
     </task>
     <servers />
   </component>

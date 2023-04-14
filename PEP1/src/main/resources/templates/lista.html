@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Lista de Proveedores</title>
+  <!-- Importar Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+</head>
+<body>
+
+<!-- Barra de navegación -->
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Milk Stgo</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a href="/">Inicio</a></li>
+      <li><a href="/proveedores">Proveedores</a></li>
+      <li><a href="/importAcopio">Importar Acopios</a> </li>
+      <li><a href="/importLab">Importar Resultados Laboratorio</a> </li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Contenido principal -->
+<div class="container">
+  <h1>Lista de Proveedores</h1>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Código</th>
+      <th>Nombre</th>
+      <th>Categoría</th>
+      <th>Tiene Retención?</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="proveedor : ${proveedores}">
+      <td th:text="${proveedor.codigo}"></td>
+      <td th:text="${proveedor.nombre}"></td>
+      <td th:text="${proveedor.categoria}"></td>
+      <td th:text="${proveedor.retencion}"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Importar jQuery y Bootstrap JavaScript -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+</body>
+</html>

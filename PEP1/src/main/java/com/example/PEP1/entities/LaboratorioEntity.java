@@ -1,30 +1,27 @@
-package entities;
+package com.example.PEP1.entities;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
-
-
 @Entity
-@Table(name = "pagos")
+@Table(name = "laboratorios")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 
-public class PagosEntity{
+
+public class LaboratorioEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column (unique = true, nullable = false)
-    private  Long id_pago;
+    private Long id_lab;
 
 
-    private  Integer total_acopios;
-    private  Integer total ;
-    private  String codigo_proveedor ;
-
+    private Double grasas;
+    private Double solidos;
+    private Long codigo_proveedor;
 
     @ManyToOne
     private ProveedorEntity proveedor;

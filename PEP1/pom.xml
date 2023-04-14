@@ -45,11 +45,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>com.sun.istack</groupId>
-			<artifactId>istack-commons</artifactId>
-			<version>3.0.12</version>
-		</dependency>
 
 	</dependencies>
 
@@ -68,6 +63,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>PEP1</finalName>
 	</build>
 
 </project>
