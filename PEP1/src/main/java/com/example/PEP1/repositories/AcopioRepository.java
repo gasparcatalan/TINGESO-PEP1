@@ -21,4 +21,10 @@ public interface AcopioRepository extends CrudRepository<AcopioEntity,Long> {
             " and a.fecha = :fecha")
         Double totalLeche(@Param("codigo") Long codigo
                       ,@Param("fecha")Date fecha);
+
+
+    @Query("select count(a) from AcopioEntity a where a.codigo_proveedor =:codigo "+
+           "and a.turno =:turno")
+    Integer countTurno(@Param("codigo") Long codigo,
+                              @Param("turno") String turno);
 }

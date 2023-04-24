@@ -51,10 +51,12 @@ public class AcopioService {
         }
     }
 
+    @Generated
     public void guardarData(AcopioEntity data){
         acopioRepository.save(data);
     }
 
+    @Generated
     public void guardarDataDB(String fecha, String turno, String id_proveedor, String kls_leche){
         AcopioEntity newData = new AcopioEntity();
         try{

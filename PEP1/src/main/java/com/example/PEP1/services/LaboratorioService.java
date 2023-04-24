@@ -49,8 +49,10 @@ public class LaboratorioService {
             return "No se pudo guardar el archivo";
         }
     }
+    @Generated
     public void guardarData(LaboratorioEntity data){laboratorioRepository.save(data);}
 
+    @Generated
     public void guardarDataDB(String id_proveedor,String grasa,String solidos ){
         LaboratorioEntity newData = new LaboratorioEntity();
         newData.setCodigo_proveedor(Long.parseLong(id_proveedor));
