@@ -8,6 +8,4 @@ public class Pep1Application {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Pep1Application.class, args);
-	}
-
-}
+	}}

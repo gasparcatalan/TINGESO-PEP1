@@ -23,8 +23,7 @@ public class LaboratorioEntity {
     private Double solidos;
     private Long codigo_proveedor;
 
-    @ManyToOne
-    private ProveedorEntity proveedor;
+
 
 
 }

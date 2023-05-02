@@ -12,15 +12,11 @@ import java.util.Date;
 
 @Repository
 public interface AcopioRepository extends CrudRepository<AcopioEntity,Long> {
-    @Query("select a from AcopioEntity a where a.codigo_proveedor = :codigo" +
-            " and a.fecha = :fecha")
-    ArrayList<AcopioEntity> findAllByCodigo_proveedorAAndFecha(@Param("codigo") Long codigo
-                                                              ,@Param("fecha")Date fecha);
+    @Query("select a from AcopioEntity a where a.codigo_proveedor = :codigo")
+    ArrayList<AcopioEntity> findAllByCodigo_proveedor(@Param("codigo") Long codigo);
 
-    @Query("select  sum (a.kls_leche) from AcopioEntity a where a.codigo_proveedor = :codigo" +
-            " and a.fecha = :fecha")
-        Double totalLeche(@Param("codigo") Long codigo
-                      ,@Param("fecha")Date fecha);
+    @Query("select  sum (a.kls_leche) from AcopioEntity a where a.codigo_proveedor = :codigo")
+        Double totalLeche(@Param("codigo") Long codigo);
 
 
     @Query("select count(a) from AcopioEntity a where a.codigo_proveedor =:codigo "+

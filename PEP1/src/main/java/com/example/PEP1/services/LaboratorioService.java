@@ -27,6 +27,8 @@ public class LaboratorioService {
     @Autowired
     LaboratorioRepository laboratorioRepository;
 
+    public LaboratorioEntity obtenerLaboratorio(Long codigo){
+        return (LaboratorioEntity) laboratorioRepository.findByCodigo(codigo);}
     private final Logger logg = (Logger) LoggerFactory.getLogger(LaboratorioService.class);
     @Generated
     public String guardar(MultipartFile file){
@@ -62,7 +64,7 @@ public class LaboratorioService {
     }
 
     @Generated
-    public void leerCsv(String direccion){
+    public String leerCsv(String direccion){
         String texto = "";
         BufferedReader bf = null;
         laboratorioRepository.deleteAll();
@@ -81,9 +83,9 @@ public class LaboratorioService {
                 }
             }
             texto = temp;
-            System.out.println("Archivo leido exitosamente");
+            return"Archivo leido exitosamente";
         }catch(Exception e){
-            System.err.println("No se encontro el archivo");
+            return "No se encontro el archivo";
         }finally{
             if(bf != null){
                 try{

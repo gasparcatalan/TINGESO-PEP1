@@ -17,11 +17,10 @@ public class ProveedorService {
     public ArrayList<ProveedorEntity> obtenerProveedores(){
         return (ArrayList<ProveedorEntity>) proveedorRepository.findAll();
     }
-
-    public ProveedorEntity guardarProveedor(ProveedorEntity proveedor){
-
-        return proveedorRepository.save(proveedor);
+    public  ProveedorEntity obtenerProveedor(Long codigo){
+        return  (ProveedorEntity) proveedorRepository.findProveedorByCodigo(codigo);
     }
+
 
     public void crearProveedor(Long codigo,String nombre, String categoria, String retencion) {
         ProveedorEntity temp_proveedor = new ProveedorEntity();
@@ -32,17 +31,6 @@ public class ProveedorService {
         proveedorRepository.save(temp_proveedor);
     }
 
-    public Optional<ProveedorEntity> obtenerPorId(Long id){
-        return proveedorRepository.findById(id);
-    }
 
-    public boolean eliminarProveedor(Long id){
-        try {
-            proveedorRepository.deleteById(id);
-            return true;
-        }catch (Exception err){
-            return false;
-        }
-    }
 
 }

@@ -19,7 +19,6 @@ public class ProveedorEntity {
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long Id;
 
-
     private Long codigo;
     private String nombre;
     private String categoria;

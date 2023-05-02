@@ -24,6 +24,5 @@ public class AcopioEntity {
     private Long codigo_proveedor;
     private Date fecha;
 
-    @ManyToOne
-    public ProveedorEntity prov;
+
 }

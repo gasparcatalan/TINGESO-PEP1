@@ -17,19 +17,37 @@
         <ul class="nav navbar-nav">
             <li><a href="/">Inicio</a></li>
             <li><a href="/lista">Proveedores</a></li>
-            <li><a href="/importAcopio">Importar Acopios</a> </li>
+            <li><a href="/importLab">Importar Acopios</a> </li>
         </ul>
     </div>
 </nav>
-<div class="container">
-    <h1>Upload CSV File</h1>
-    <form th:action="@{/upload-csv}" th:object="${csvForm}" method="post" enctype="multipart/form-data">
+<div class="container mt-5">
+    <h1>Subir Archivos CSV</h1>
+    <form th:action="@{/importLab}" method="POST" enctype="multipart/form-data" class = "mt-5">
         <div class="form-group">
-            <label for="csvFile">Select CSV File:</label>
-            <input type="file" class="form-control-file" id="csvFile" name="csvFile" accept=".csv">
+            <label for="acopios">Archivo Acopios</label>
+            <input type="file" class="form-control-file" id="acopios" name="acopios" accept=".csv" required>
         </div>
-        <button type="submit" class="btn btn-primary">Upload</button>
+        <div class="form-group">
+            <label for="laboratorios">Archivo Resultados</label>
+            <input type="file" class="form-control-file" id="laboratorios" name="laboratorios" accept=".csv" required>
+        </div>
+        <button type="submit" class="btn btn-primary" id="submitBtn" >Enviar</button>
     </form>
 </div>
+
+
+
+
+</form>
+</div>
+
+<!-- Importar jQuery y Bootstrap JavaScript -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha384-0m/RJN9MYHQdUmEuW3J3SFz9TaZ1vUaCf5q1i9pjX6Kj7UhBtM6a8abt5VjVOJpd"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-zISQnIq7VXY9QghlC7V/zsTcmFp7BZNRk+jjKddV+sAbi53loRn38iDwbwsZe6dz"
+        crossorigin="anonymous"></script>
 </body>
 </html>

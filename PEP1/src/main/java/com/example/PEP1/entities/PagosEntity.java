@@ -24,6 +24,7 @@ public class PagosEntity{
     private String nombre_proveedor;
     private  Date fecha;
     private Integer dias_envios;
+    private Double prom_leche_dia;
     //Resultados Lab
     private Double leche;
     private Double grasa;
@@ -46,8 +47,6 @@ public class PagosEntity{
     private Double monto_retencion;
     private Double monto_final;
 
-    @ManyToOne
-    private ProveedorEntity proveedor;
 
 
 }

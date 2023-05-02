@@ -60,7 +60,7 @@ public class AcopioService {
     public void guardarDataDB(String fecha, String turno, String id_proveedor, String kls_leche){
         AcopioEntity newData = new AcopioEntity();
         try{
-            SimpleDateFormat temp = new SimpleDateFormat("yyyy/MM/dd");
+            SimpleDateFormat temp = new SimpleDateFormat("yyyy-MM-dd");
             Date fecha_temp = temp.parse(fecha);
             newData.setFecha(fecha_temp);
         }catch (ParseException ex){
@@ -76,7 +76,7 @@ public class AcopioService {
     }
 
     @Generated
-    public void leerCsv(String direccion){
+    public String leerCsv(String direccion){
         String texto = "";
         BufferedReader bf = null;
         acopioRepository.deleteAll();
@@ -95,9 +95,9 @@ public class AcopioService {
                 }
             }
             texto = temp;
-            System.out.println("Archivo leido exitosamente");
+            return "Archivo leido exitosamente";
         }catch(Exception e){
-            System.err.println("No se encontro el archivo");
+            return "No se encontro el archivo";
         }finally{
             if(bf != null){
                 try{
