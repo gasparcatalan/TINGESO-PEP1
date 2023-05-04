@@ -3,23 +3,22 @@ services:
   mysql-db:
     image: mysql
     restart: always
-    volumes:
-      - ./data/db:/var/lib/mysql
     environment:
-      MYSQL_ROOT_USER: root
-      MYSQL_ROOT_PASSWORD: mysql
-      MYSQL_DATABASE: milkstgo
+      - MYSQL_USER=gaspitas
+      - MYSQL_PASSWORD=hola
+      - MYSQL_ROOT_PASSWORD=mysql
+      - MYSQL_DATABASE=milkstgo
     ports:
-      - 33060:3306
+      - 33061:3306
   app:
     container_name: tingeso_pep1
-    image: gcatalan/tingeso_pep1
+    image: gaspitas241/tingeso_pep1
     ports:
       - "8090:8090"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-db:3306/milkstgo?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=mysql
+      - SPRING_DATASOURCE_USERNAME=gaspitas
+      - SPRING_DATASOURCE_PASSWORD=hola
     deploy:
       restart_policy:
         condition: on-failure
