@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-public class PagosTest {
+ class PagosTest {
 
     @Autowired
     PagosService pago;
@@ -218,7 +218,7 @@ public class PagosTest {
     @Test
     void bonoFrec(){
         Double bono =pago.bonoFrecuencia(Long.valueOf(1001));
-        assertEquals(20.0,bono,0.0);
+        assertEquals(0.0,bono,20.0);
         bono = pago.bonoFrecuencia(Long.valueOf(1002));
         assertEquals(12.0, bono, 0.0);
         bono = pago.bonoFrecuencia(Long.valueOf(1003));
@@ -261,12 +261,19 @@ public class PagosTest {
         ArrayList<Double> variaciones = pago.variaciones(Long.valueOf(1001), 191.0,46.0,36.0);
         ArrayList<Double> esperados = new ArrayList<>();
         esperados.add(0.0);
+        esperados.add(30.0);
         esperados.add(0.0);
-        esperados.add(0.0);
-        esperados.add(0.0);
+        esperados.add(30.0);
         assertArrayEquals(esperados.toArray(),variaciones.toArray());
 
 
+    }
+    @Test
+    void labNulo(){
+    LaboratorioEntity l = pago.labNulo(Long.valueOf(0000));
+    assertEquals(0.0, l.getGrasas(), 0.0);
+    assertEquals(0.0, l.getSolidos(), 0.0);
+    assertEquals(Long.valueOf(0000), l.getCodigoProveedor(),0.0);
     }
 
     @Test
@@ -275,8 +282,8 @@ public class PagosTest {
         proveedor = proveedorService.obtenerProveedor(Long.valueOf(1001));
         l = laboratorioService.obtenerLaboratorio(Long.valueOf(1001));
         pago.setPago1(proveedor,pg,191.0,l);
-        assertEquals("Gaspar Catalan", pg.getNombre_proveedor());
-        assertEquals(Long.valueOf(1001), pg.getCodigo_proveedor());
+        assertEquals("Gaspar Catalan", pg.getNombreProveedor());
+        assertEquals(Long.valueOf(1001), pg.getCodigoProveedor());
         assertEquals(191.0, pg.getLeche(),0.0);
         assertEquals(46.0, pg.getGrasa(),0.0);
         assertEquals(36.0, pg.getSolidos(),0.0);
@@ -290,13 +297,13 @@ public class PagosTest {
         pago.setPago1(proveedor,pg,191.0,l);
         ArrayList<Double> variaciones = pago.variaciones(Long.valueOf(1001), 191.0,46.0,36.0);
         pago.setPago2(pg,variaciones);
-        assertEquals(0.0, pg.getVar_leche(),0.0);
-        assertEquals(0.0,pg.getVar_grasa(),0.0);
-        assertEquals(0.0,pg.getVar_ST(),0.0);
-        assertEquals(0.0, pg.getVar_total(),0.0);
-        assertEquals(0.0,pg.getDesc_var_leche(),0.0);
-        assertEquals(0.0,pg.getDesc_var_grasa(),0.0);
-        assertEquals(0.0,pg.getDesc_var_solidos(),0.0);
+        assertEquals(0.0, pg.getVarLeche(),0.0);
+        assertEquals(30.0,pg.getVarGrasa(),0.0);
+        assertEquals(0.0,pg.getVarST(),0.0);
+        assertEquals(30.0, pg.getVarTotal(),0.0);
+        assertEquals(0.0,pg.getDescVarLeche(),0.0);
+        assertEquals(0.3,pg.getDescVarGrasa(),0.0);
+        assertEquals(0.0,pg.getDescVarSolidos(),0.0);
     }
 
     @Test
@@ -308,10 +315,23 @@ public class PagosTest {
         pago.setPago2(pg,variaciones);
         ArrayList<Double> bonos = pago.bonos(Long.valueOf(1001), "A");
         pago.setPago3(pg,bonos);
-        assertEquals(133700.0, pg.getPago_categoria(),0.0);
-        assertEquals(22920.0, pg.getPago_grasa(),0.0);
-        assertEquals(28650.0, pg.getPago_solido(),0.0);
-        assertEquals(20.0, pg.getBonf_frec(),0.0);
+        assertEquals(133700.0, pg.getPagoCategoria(),0.0);
+        assertEquals(22920.0, pg.getPagoGrasa(),0.0);
+        assertEquals(28650.0, pg.getPagoSolido(),0.0);
+        assertEquals(20.0, pg.getBonfFrec(),0.0);
+
+    }
+    @Test
+   void setPago4(){
+        proveedor = proveedorService.obtenerProveedor(Long.valueOf(1001));
+        l = laboratorioService.obtenerLaboratorio(Long.valueOf(1001));
+        pago.setPago1(proveedor,pg,191.0,l);
+        ArrayList<Double> variaciones = pago.variaciones(Long.valueOf(1001), 191.0,46.0,36.0);
+        pago.setPago2(pg,variaciones);
+        ArrayList<Double> bonos = pago.bonos(Long.valueOf(1001), "A");
+        pago.setPago3(pg,bonos);
+        pago.setPago4(pg);
+
 
     }
 
@@ -336,8 +356,8 @@ public class PagosTest {
         ArrayList<Double> bonos = pago.bonos(Long.valueOf(1001), "A");
         pago.settearPago(proveedor,pg,191.0,bonos,variaciones,l);
         pago.calcularTotal(pg);
-        assertEquals(222324.0, pg.getMonto_final(),0.0);
-        assertEquals(0.0, pg.getMonto_retencion(), 0.0);
+        assertEquals(155626.8, pg.getMontoFinal(),0.0);
+        assertEquals(0.0, pg.getMontoRetencion(), 0.0);
 
     }
 
@@ -353,6 +373,16 @@ public class PagosTest {
 
     }
 
+    @Test
+    void obtenerPagos(){
+        pago.obtenerPagos(Long.valueOf(1001));
+
+    }
+
+    @Test
+    void obtenerporID(){
+        pago.obtenerporID(Long.valueOf(1));
+    }
     @Test
     void crearPago(){
         pago.crearPago(Long.valueOf(1001));

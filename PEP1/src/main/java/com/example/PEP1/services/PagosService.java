@@ -27,6 +27,13 @@ public class PagosService {
     LaboratorioRepository laboratorioRepository;
     @Autowired
     ProveedorRepository proveedorRepository;
+
+    public ArrayList<PagosEntity> obtenerPagos(Long codigo){
+        return pagosRepository.findAllByCodigo_proveedor(codigo);}
+
+    public PagosEntity obtenerporID(Long id){
+        return  pagosRepository.findporId(id);
+    }
     public void generarPagos(){
         ArrayList<ProveedorEntity> proveedores =
                 (ArrayList<ProveedorEntity>) proveedorRepository.findAll();
@@ -37,38 +44,33 @@ public class PagosService {
     public void crearPago(Long codigo){
         ProveedorEntity p = proveedorRepository.findProveedorByCodigo(codigo);
         LaboratorioEntity l = laboratorioRepository.findByCodigo(codigo);
-        Double kls_leche = acopioRepository.totalLeche(codigo);
-        if (kls_leche==null ){kls_leche = 0.0;}
-        if (l ==null){
-            ArrayList<Double> bonos =  bonos(codigo,p.getCategoria());
-            ArrayList<Double> variaciones = variaciones(codigo,kls_leche,0.0,0.0);
-            PagosEntity pago = new PagosEntity();
-            pago = settearPago(p,pago,kls_leche,bonos,variaciones, l);
-            calcularTotal(pago);
-            pagosRepository.save(pago);
-        }else{
+        Double klsLeche = acopioRepository.totalLeche(codigo);
+        if (klsLeche==null ){klsLeche = 0.0;}
+        if (l ==null){  l = new LaboratorioEntity();
+                        l = labNulo(codigo);}
         ArrayList<Double> bonos =  bonos(codigo,p.getCategoria());
-        ArrayList<Double> variaciones = variaciones(codigo,kls_leche,l.getGrasas(),l.getSolidos());
+        ArrayList<Double> variaciones = variaciones(codigo,klsLeche,l.getGrasas(),l.getSolidos());
         PagosEntity pago = new PagosEntity();
-        pago = settearPago(p,pago,kls_leche,bonos,variaciones, l);
+        pago = settearPago(p,pago,klsLeche,bonos,variaciones, l);
         calcularTotal(pago);
-        pagosRepository.save(pago);}}
+        pagosRepository.save(pago);}
 
 
     public void calcularTotal(PagosEntity pg ){
-        Double pagos = pg.getPago_grasa()+ pg.getPago_categoria()
-                +pg.getPago_solido();
-        pagos = pagos + pagos*(pg.getBonf_frec()/100);
-        Double var_total = pg.getVar_total();
-        Double desc = pagos * (var_total/100.0);
-        Double pago_total = pagos - desc ;
-        pg.setTotal(pago_total);
-        if(pago_total>950000.0){
-            pg.setMonto_retencion(pago_total * (0.13));
-            pg.setMonto_final(pago_total - pg.getMonto_retencion());
+        Double pagos = pg.getPagoGrasa()+ pg.getPagoCategoria()
+                +pg.getPagoSolido();
+        pagos = pagos + pagos*(pg.getBonfFrec()/100);
+        Double varTotal = pg.getVarTotal();
+        Double desc = pagos * (varTotal/100.0);
+        Double pagoTotal = pagos - desc ;
+        if (pagoTotal < 0.0){pagoTotal = 0.0;}
+        pg.setTotal(pagoTotal);
+        if(pagoTotal>950000.0){
+            pg.setMontoRetencion(pagoTotal * (0.13));
+            pg.setMontoFinal(pagoTotal - pg.getMontoRetencion());
             return;}
-        pg.setMonto_retencion(0.0);
-        pg.setMonto_final(pago_total);}
+        pg.setMontoRetencion(0.0);
+        pg.setMontoFinal(pagoTotal);}
 
 
     public PagosEntity settearPago(ProveedorEntity p,PagosEntity pg,
@@ -80,35 +82,51 @@ public class PagosService {
         setPago2(pg, vars);
         //Montos, descuentos otros
         setPago3(pg, bono);
+        //Dias de envio y promedio
+        setPago4(pg);
         return pg;}
 
 
     public void setPago1(ProveedorEntity p, PagosEntity pg,
                          Double leche, LaboratorioEntity l){
-        pg.setNombre_proveedor(p.getNombre());
-        pg.setCodigo_proveedor(p.getCodigo());
+        pg.setNombreProveedor(p.getNombre());
+        pg.setCodigoProveedor(p.getCodigo());
         pg.setLeche(leche);
         if (l==null){pg.setGrasa(0.0);
-            pg.setSolidos(0.0);
-        }else {pg.setGrasa(l.getGrasas());
-        pg.setSolidos(l.getSolidos());}}
+                     pg.setSolidos(0.0);}
+        else {pg.setGrasa(l.getGrasas());
+        pg.setSolidos(l.getSolidos());
+        pg.setFecha(obtenerFechaHoy());}}
 
 
     public  void setPago2(PagosEntity pg, ArrayList<Double> vars){
-        pg.setVar_leche(vars.get(0));
-        pg.setVar_grasa(vars.get(1));
-        pg.setVar_ST(vars.get(2));
-        pg.setVar_total(vars.get(3));
-        pg.setDesc_var_leche(pg.getVar_leche()/100.0);
-        pg.setDesc_var_grasa(pg.getVar_grasa()/100.0);
-        pg.setDesc_var_solidos(pg.getVar_ST()/100.0);}
+        pg.setVarLeche(vars.get(0));
+        pg.setVarGrasa(vars.get(1));
+        pg.setVarST(vars.get(2));
+        pg.setVarTotal(vars.get(3));
+        pg.setDescVarLeche(pg.getVarLeche()/100.0);
+        pg.setDescVarGrasa(pg.getVarGrasa()/100.0);
+        pg.setDescVarSolidos(pg.getVarST()/100.0);}
 
 
     public void setPago3(PagosEntity pg,ArrayList<Double> bonos){
-        pg.setPago_categoria(bonos.get(0));
-        pg.setPago_grasa(bonos.get(1));
-        pg.setPago_solido(bonos.get(2));
-        pg.setBonf_frec(bonos.get(3));
+        pg.setPagoCategoria(bonos.get(0));
+        pg.setPagoGrasa(bonos.get(1));
+        pg.setPagoSolido(bonos.get(2));
+        pg.setBonfFrec(bonos.get(3));
+
+    }
+
+    public void setPago4(PagosEntity pg){
+       Integer turnosM = acopioRepository.countTurno(pg.getCodigoProveedor(), "M");
+       Integer turnosT = acopioRepository.countTurno(pg.getCodigoProveedor(), "T");
+       if (turnosM>turnosT){pg.setDiasEnvios(turnosM);}
+       else {pg.setDiasEnvios(turnosT);}
+       Integer turnos = 0;
+       turnos =  turnosM + turnosT;
+        if (turnos == 0){pg.setPromLecheDia(0.0);
+            return;}
+        pg.setPromLecheDia(pg.getLeche()/Double.valueOf(turnos));
     }
 
 
@@ -118,31 +136,46 @@ public class PagosService {
         return temp;}
 
 
-    public  ArrayList<Double> variaciones(Long codigo, Double total_kls,
+    public  ArrayList<Double> variaciones(Long codigo, Double totalKls,
                                           Double grasa, Double solidos){
         ArrayList<Double> total_var =new ArrayList<>();
         Date hoy = obtenerFechaHoy();
         //[var_leche, var_grasa, var_St, total_var]
         if(pagosRepository.findAnteriorPago(codigo,hoy) == null){
-             total_var.add(varLeche(0.0,total_kls));
-             total_var.add(varGrasa(0.0,grasa));
-             total_var.add(varST(0.0, solidos));
-             total_var.add(total_var.stream().mapToDouble(d->d).sum());
+            total_var = variaciones_1(totalKls,grasa,solidos);
         }else{
-        PagosEntity p = pagosRepository.findAnteriorPago(codigo,hoy);
-        total_var.add(varLeche(p.getLeche(),total_kls));
-        total_var.add(varGrasa(p.getGrasa(),grasa));
-        total_var.add(varST(p.getSolidos(), solidos));
-        total_var.add(total_var.stream().mapToDouble(d->d).sum());
+        total_var = variaciones_2(codigo,totalKls,grasa,solidos);
         }
-        return total_var;//[var_leche, var_grasa, var_St, total_var]}
+        //[var_leche, var_grasa, var_St, total_var]}
+        return total_var;
+    }
+
+    public ArrayList<Double> variaciones_1( Double totalKls,
+                                           Double grasa, Double solidos){
+        ArrayList<Double> totalVar =new ArrayList<>();
+        totalVar.add(varLeche(0.0,totalKls));
+        totalVar.add(varGrasa(0.0,grasa));
+        totalVar.add(varST(0.0, solidos));
+        totalVar.add(totalVar.stream().mapToDouble(d->d).sum());
+        return totalVar;
+    }
+    public ArrayList<Double> variaciones_2(Long codigo, Double totalKls,
+                                           Double grasa, Double solidos){
+        ArrayList<Double> totalVar =new ArrayList<>();
+        Date hoy = obtenerFechaHoy();
+        PagosEntity p = pagosRepository.findAnteriorPago(codigo,hoy);
+        totalVar.add(varLeche(p.getLeche(),totalKls));
+        totalVar.add(varGrasa(p.getGrasa(),grasa));
+        totalVar.add(varST(p.getSolidos(), solidos));
+        totalVar.add(totalVar.stream().mapToDouble(d->d).sum());
+        return totalVar;
     }
 
 
-    public Double varLeche(Double leche_prev,Double leche_ahora){
-            Double dif = leche_prev - leche_ahora;
+    public Double varLeche(Double lechePrev,Double lecheAhora){
+            Double dif = lechePrev - lecheAhora;
             if (dif > 0.0){
-                Double dif2 = (dif/leche_ahora)*100;
+                Double dif2 = (dif/lecheAhora)*100;
                 if (dif2>=0.0 && dif2 <=8.0){ return 0.0;}
                 if (dif2>=9.0 && dif2 <=25.0){ return 7.0;}
                 if (dif2>=26.0 && dif2 <=45.0){ return 15.0;}
@@ -150,10 +183,10 @@ public class PagosService {
             return 0.0;}
 
 
-    public Double varGrasa(Double grasa_prev,Double grasa_ahora){
-        Double dif = grasa_prev - grasa_ahora;
+    public Double varGrasa(Double grasaPrev,Double grasaAhora){
+        Double dif = grasaPrev - grasaAhora;
         if (dif > 0.0){
-            Double dif2 = (dif/grasa_ahora)*100;
+            Double dif2 = (dif/grasaAhora)*100;
             if (dif2>=0.0 && dif2 <=15.0){ return 0.0;}
             if (dif2>=16.0 && dif2 <=25.0){ return 12.0;}
             if (dif2>=26.0 && dif2 <=40.0){ return 20.0;}
@@ -161,55 +194,58 @@ public class PagosService {
         return 0.0;}
 
 
-    public Double varST(Double st_prev,Double st_ahora){
-        Double dif = st_prev - st_ahora;
+    public Double varST(Double stPrev,Double stAhora){
+        Double dif = stPrev - stAhora;
         if (dif > 0.0){
-            Double dif2 = (dif/st_ahora)*100;
+            Double dif2 = (dif/stAhora)*100;
             if (dif2>=0.0 && dif2 <=6.0){ return 0.0;}
             if (dif2>=7.0 && dif2 <=12.0){ return 18.0;}
             if (dif2>=13.0 && dif2 <=35.0){ return 27.0;}
             if (dif2>=36.0){ return 45.0;}}
         return 0.0;}
     public ArrayList<Double> bonoXLab(Long codigo, String categoria){
-        Double total_kls = acopioRepository.totalLeche(codigo);
-        if (total_kls == null){total_kls = 0.0;}
+        Double totalKls = acopioRepository.totalLeche(codigo);
+        if (totalKls == null){totalKls = 0.0;}
         LaboratorioEntity l = laboratorioRepository.findByCodigo(codigo);
-        if (l == null){
-            Double bono_cat = bonoCategoria(categoria,total_kls);
-            Double bono_grasa = bonoGrasa(0.0,total_kls);
-            Double bono_solido = bonoSolidos(0.0, total_kls);
-            return new ArrayList<>(Arrays.asList(bono_cat,bono_grasa,bono_solido));
-        }else{
-        Double bono_cat = bonoCategoria(categoria,total_kls);
-        Double bono_grasa = bonoGrasa(l.getGrasas(),total_kls);
-        Double bono_solido = bonoSolidos(l.getSolidos(), total_kls);
-        return new ArrayList<>(Arrays.asList(bono_cat,bono_grasa,bono_solido));}}
-    public Double  bonoCategoria(String categoria , Double total_kls){
-        if(categoria == "A"){return total_kls * 700.0;}
-        if(categoria == "B"){return total_kls * 550.0;}
-        if(categoria == "C"){return total_kls * 400.0;}
-        if(categoria == "D"){return total_kls * 250.0;}
+        if (l == null) { l = new LaboratorioEntity();
+                         l= labNulo( codigo);}
+        Double bonoCat = bonoCategoria(categoria,totalKls);
+        Double bonoGrasa = bonoGrasa(l.getGrasas(),totalKls);
+        Double bonoSolido = bonoSolidos(l.getSolidos(), totalKls);
+        return new ArrayList<>(Arrays.asList(bonoCat,bonoGrasa,bonoSolido));}
+    public Double  bonoCategoria(String categoria , Double totalKls){
+        if(categoria.equals("A")){return totalKls * 700.0;}
+        if(categoria.equals("B")){return totalKls * 550.0;}
+        if(categoria.equals("C")){return totalKls * 400.0;}
+        if(categoria.equals("D")){return totalKls * 250.0;}
         return 0.0;}
-    public Double bonoGrasa(Double grasa , Double kls_leche){
+    public Double bonoGrasa(Double grasa , Double klsLeche){
 
-        if (grasa>=0.0 && grasa <=20.0){ return kls_leche*30.0;}
-        if (grasa>=21.0 && grasa <=45.0){ return kls_leche*80.0;}
-        if (grasa >=46.0){ return kls_leche*120.0;}
+        if (grasa>=0.0 && grasa <=20.0){ return klsLeche*30.0;}
+        if (grasa>=21.0 && grasa <=45.0){ return klsLeche*80.0;}
+        if (grasa >=46.0){ return klsLeche*120.0;}
         return 0.0;}
-    public Double bonoSolidos(Double solidos , Double kls_leche){
-        if (solidos>= 0 && solidos <=7 ){ return kls_leche*-130.0;}
-        if (solidos>=8 && solidos <=18){ return kls_leche*-90.0;}
-        if (solidos>=19 && solidos<=35){ return kls_leche*95.0;}
-        if (solidos >=36){ return kls_leche*150.0;}
+    public Double bonoSolidos(Double solidos , Double klsLeche){
+        if (solidos>= 0 && solidos <=7 ){ return klsLeche*-130.0;}
+        if (solidos>=8 && solidos <=18){ return klsLeche*-90.0;}
+        if (solidos>=19 && solidos<=35){ return klsLeche*95.0;}
+        if (solidos >=36){ return klsLeche*150.0;}
         return 0.0;}
     public Double bonoFrecuencia(Long codigo){
         Integer m = acopioRepository.countTurno(codigo, "M");
         Integer t = acopioRepository.countTurno(codigo, "T");
-        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
         if (m>= 10 && t>= 10){return 20.0;}
         if (m>=10 ){return 12.0;}
         if (t>=10){return 8.0;}
         return 0.0;}
+
+    public LaboratorioEntity labNulo(Long codigo){
+        LaboratorioEntity l = new LaboratorioEntity();
+        l.setCodigoProveedor(codigo);
+        l.setGrasas(0.0);
+        l.setSolidos(0.0);
+        return l;
+    }
     @Generated
     public Date obtenerFechaHoy(){
         Date hoy = new Date();

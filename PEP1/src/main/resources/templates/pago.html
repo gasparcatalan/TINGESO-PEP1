@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle Pago</title>
+    <!-- Importar Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+</head>
+<body>
+<!-- Barra de navegación -->
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Milk Stgo</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="/">Inicio</a></li>
+            <li><a href="/crear">Agregar proveedor</a></li>
+            <li><a href="/lista">Proveedores</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <h1>Detalles del Pago</h1>
+    <ul class="list-group">
+        <li class="list-group-item">ID del Pago: <span th:text="${pago.idPago}"></span></li>
+        <li class="list-group-item">Código del Proveedor: <span th:text="${pago.codigoProveedor}"></span></li>
+        <li class="list-group-item">Nombre del Proveedor: <span th:text="${pago.nombreProveedor}"></span></li>
+        <li class="list-group-item">Fecha: <span th:text="${pago.fecha}"></span></li>
+        <li class="list-group-item">Días de Envío: <span th:text="${pago.diasEnvios}"></span></li>
+        <li class="list-group-item">Promedio de Leche por Día: <span th:text="${pago.promLecheDia}"></span></li>
+        <li class="list-group-item">Leche: <span th:text="${pago.leche}"></span></li>
+        <li class="list-group-item">Grasa: <span th:text="${pago.grasa}"></span></li>
+        <li class="list-group-item">Sólidos: <span th:text="${pago.solidos}"></span></li>
+        <li class="list-group-item">Variación de Leche: <span th:text="${pago.varLeche}"></span></li>
+        <li class="list-group-item">Variación de Grasa: <span th:text="${pago.varGrasa}"></span></li>
+        <li class="list-group-item">Variación de Sólidos Totales: <span th:text="${pago.varST}"></span></li>
+        <li class="list-group-item">Variación Total: <span th:text="${pago.varTotal}"></span></li>
+        <li class="list-group-item">Pago por Categoría: <span th:text="${pago.pagoCategoria}"></span></li>
+        <li class="list-group-item">Pago por Grasa: <span th:text="${pago.pagoGrasa}"></span></li>
+        <li class="list-group-item">Pago por Sólidos: <span th:text="${pago.pagoSolido}"></span></li>
+        <li class="list-group-item">Bonificación por Frecuencia: <span th:text="${pago.bonfFrec}"></span></li>
+        <li class="list-group-item">Descuento por Variación de Leche: <span th:text="${pago.descVarLeche}"></span></li>
+        <li class="list-group-item">Descuento por Variación de Grasa: <span th:text="${pago.descVarGrasa}"></span></li>
+        <li class="list-group-item">Descuento por Variación de Sólidos: <span th:text="${pago.descVarSolidos}"></span></li>
+        <li class="list-group-item">Total: <span th:text="${pago.total}"></span></li>
+        <li class="list-group-item">Monto de Retención: <span th:text="${pago.montoRetencion}"></span></li>
+        <li class="list-group-item">Monto Final: <span th:text="${pago.montoFinal}"></span></li>
+    </ul>
+</div>
+
+
+
+
+</body>
+</html>

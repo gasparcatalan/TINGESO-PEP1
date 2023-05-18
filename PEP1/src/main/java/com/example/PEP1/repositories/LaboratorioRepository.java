@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public interface LaboratorioRepository extends CrudRepository<LaboratorioEntity, Long> {
 
     @Query
-            ("select l from LaboratorioEntity l where l.codigo_proveedor = :codigo")
+            ("select l from LaboratorioEntity l where l.codigoProveedor = :codigo")
             LaboratorioEntity findByCodigo(@Param("codigo") Long Codigo);
 
     @Query

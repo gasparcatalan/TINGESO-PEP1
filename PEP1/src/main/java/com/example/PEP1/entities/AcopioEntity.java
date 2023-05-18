@@ -17,11 +17,11 @@ public class AcopioEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column (unique = true, nullable = false)
-    private Long id_acopio;
+    private Long idAcopio;
 
-    private Double kls_leche;
+    private Double klsLeche;
     private String turno;
-    private Long codigo_proveedor;
+    private Long codigoProveedor;
     private Date fecha;
 
 

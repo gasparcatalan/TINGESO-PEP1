@@ -15,8 +15,7 @@ public class ProveedorService {
     ProveedorRepository proveedorRepository;
 
     public ArrayList<ProveedorEntity> obtenerProveedores(){
-        return (ArrayList<ProveedorEntity>) proveedorRepository.findAll();
-    }
+        return (ArrayList<ProveedorEntity>) proveedorRepository.findAll();}
     public  ProveedorEntity obtenerProveedor(Long codigo){
         return  (ProveedorEntity) proveedorRepository.findProveedorByCodigo(codigo);
     }

@@ -12,14 +12,14 @@ import java.util.Date;
 
 @Repository
 public interface AcopioRepository extends CrudRepository<AcopioEntity,Long> {
-    @Query("select a from AcopioEntity a where a.codigo_proveedor = :codigo")
+    @Query("select a from AcopioEntity a where a.codigoProveedor = :codigo")
     ArrayList<AcopioEntity> findAllByCodigo_proveedor(@Param("codigo") Long codigo);
 
-    @Query("select  sum (a.kls_leche) from AcopioEntity a where a.codigo_proveedor = :codigo")
+    @Query("select  sum (a.klsLeche) from AcopioEntity a where a.codigoProveedor = :codigo")
         Double totalLeche(@Param("codigo") Long codigo);
 
 
-    @Query("select count(a) from AcopioEntity a where a.codigo_proveedor =:codigo "+
+    @Query("select count(a) from AcopioEntity a where a.codigoProveedor =:codigo "+
            "and a.turno =:turno")
     Integer countTurno(@Param("codigo") Long codigo,
                               @Param("turno") String turno);

@@ -57,7 +57,7 @@ public class LaboratorioService {
     @Generated
     public void guardarDataDB(String id_proveedor,String grasa,String solidos ){
         LaboratorioEntity newData = new LaboratorioEntity();
-        newData.setCodigo_proveedor(Long.parseLong(id_proveedor));
+        newData.setCodigoProveedor(Long.parseLong(id_proveedor));
         newData.setSolidos(Double.parseDouble(solidos));
         newData.setGrasas(Double.parseDouble(grasa));
         guardarData(newData);
@@ -96,7 +96,7 @@ public class LaboratorioService {
             }
         }
     }
-
+    @Generated
     public void eliminarData(ArrayList<LaboratorioEntity> datas){
         laboratorioRepository.deleteAll(datas);
     }

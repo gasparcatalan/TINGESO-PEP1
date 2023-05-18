@@ -14,8 +14,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="HTML File" />
         <option value="Class" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -68,7 +68,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PagosTest.allPagos" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PagosTest.labNulo" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="PEP1" />
       <extension name="coverage">
         <pattern>
@@ -78,13 +78,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.example.PEP1" />
       <option name="MAIN_CLASS_NAME" value="com.example.PEP1.PagosTest" />
-      <option name="METHOD_NAME" value="allPagos" />
+      <option name="METHOD_NAME" value="labNulo" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PagosTest.calculoPago2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PagosTest.setPago4" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="PEP1" />
       <extension name="coverage">
         <pattern>
@@ -94,23 +94,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.example.PEP1" />
       <option name="MAIN_CLASS_NAME" value="com.example.PEP1.PagosTest" />
-      <option name="METHOD_NAME" value="calculoPago2" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="PagosTest.crearPago" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="PEP1" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.example.PEP1.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.example.PEP1" />
-      <option name="MAIN_CLASS_NAME" value="com.example.PEP1.PagosTest" />
-      <option name="METHOD_NAME" value="crearPago" />
+      <option name="METHOD_NAME" value="setPago4" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -131,6 +115,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ProveedorTest.obtenerProveedores" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PEP1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.PEP1.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.PEP1" />
+      <option name="MAIN_CLASS_NAME" value="com.example.PEP1.ProveedorTest" />
+      <option name="METHOD_NAME" value="obtenerProveedores" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Pep1Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="PEP1" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.PEP1.Pep1Application" />
@@ -141,10 +141,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.PagosTest" />
-        <item itemvalue="JUnit.PagosTest.allPagos" />
+        <item itemvalue="JUnit.PagosTest.setPago4" />
         <item itemvalue="JUnit.ProveedorTest" />
-        <item itemvalue="JUnit.PagosTest.calculoPago2" />
-        <item itemvalue="JUnit.PagosTest.crearPago" />
+        <item itemvalue="JUnit.ProveedorTest.obtenerProveedores" />
+        <item itemvalue="JUnit.PagosTest.labNulo" />
       </list>
     </recent_temporary>
   </component>
@@ -175,6 +175,11 @@
       <workItem from="1683014921476" duration="22000" />
       <workItem from="1683016572889" duration="2043000" />
       <workItem from="1683058982631" duration="5079000" />
+      <workItem from="1683175921046" duration="6524000" />
+      <workItem from="1683250825981" duration="1206000" />
+      <workItem from="1683659906167" duration="1765000" />
+      <workItem from="1683942318826" duration="2845000" />
+      <workItem from="1684389540638" duration="20647000" />
     </task>
     <servers />
   </component>
@@ -196,13 +201,19 @@
     <SUITE FILE_PATH="coverage/TINGESO_PEP1$PagosTest_allPagos.ic" NAME="PagosTest.allPagos Coverage Results" MODIFIED="1682910352883" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.example.PEP1.*</FILTER>
     </SUITE>
+    <SUITE FILE_PATH="coverage/TINGESO_PEP1$ProveedorTest_obtenerProveedores.ic" NAME="ProveedorTest.obtenerProveedores Coverage Results" MODIFIED="1683183734995" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.example.PEP1.*</FILTER>
+    </SUITE>
     <SUITE FILE_PATH="coverage/TINGESO_PEP1$PagosTest_calculoPago2.ic" NAME="PagosTest.calculoPago2 Coverage Results" MODIFIED="1682795377845" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.example.PEP1.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/TINGESO_PEP1$PagosTest.ic" NAME="PagosTest Coverage Results" MODIFIED="1683002560982" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/TINGESO_PEP1$PagosTest_setPago4.ic" NAME="PagosTest.setPago4 Coverage Results" MODIFIED="1683186369797" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.example.PEP1.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/TINGESO_PEP1$ProveedorTest.ic" NAME="ProveedorTest Coverage Results" MODIFIED="1682809059460" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/TINGESO_PEP1$PagosTest.ic" NAME="PagosTest Coverage Results" MODIFIED="1684425666961" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.example.PEP1.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/TINGESO_PEP1$ProveedorTest.ic" NAME="ProveedorTest Coverage Results" MODIFIED="1683183786878" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.example.PEP1.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/TINGESO_PEP1$PagosTest_crearPago.ic" NAME="PagosTest.crearPago Coverage Results" MODIFIED="1682768009380" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">

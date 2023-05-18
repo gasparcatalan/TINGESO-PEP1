@@ -1,24 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
-    <title>Lista de Proveedores</title>
+    <title>Pagos </title>
     <!-- Importar Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
           crossorigin="anonymous">
-    <style>
-        /* Establecer el ancho y la altura de la imagen al 100% para ocupar toda la pantalla */
-        img {
-            width: 1200px;
-            height: 700px;
-            display: block;
-            margin: 0 auto;
-        }
-    </style>
 </head>
 <body>
-
 <!-- Barra de navegación -->
 <nav class="navbar navbar-default">
     <div class="container-fluid">
@@ -29,14 +19,33 @@
             <li><a href="/">Inicio</a></li>
             <li><a href="/crear">Agregar proveedor</a></li>
             <li><a href="/lista">Proveedores</a></li>
-            <li><a href="/importLab">Importar Datos</a> </li>
         </ul>
     </div>
 </nav>
-
-<!-- Imagen como contenido principal -->
-<img src="https://www.diariolechero.cl/files/bt_607f353951ffd.jpg" alt="Imagen principal">
-
+<div class="container">
+    <h1>Lista de Pagos</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID del Pago</th>
+            <th>Fecha</th>
+            <th>Monto Final</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="pago : ${pagos}">
+            <td>
+                <a th:href="@{/pago/{id_pago} (id_pago=${pago.getIdPago()})}">
+                    <span th:text="Ver"></span>
+                </a>
+            </td>
+            <td th:text="${pago.getIdPago()}"></td>
+            <td th:text="${pago.getFecha()}"></td>
+            <td th:text="${pago.getMontoFinal()}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
 <!-- Importar jQuery y Bootstrap JavaScript -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -45,5 +54,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
+
+
 </body>
 </html>

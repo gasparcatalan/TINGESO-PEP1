@@ -57,7 +57,7 @@ public class AcopioService {
     }
 
     @Generated
-    public void guardarDataDB(String fecha, String turno, String id_proveedor, String kls_leche){
+    public void guardarDataDB(String fecha, String turno, String idProveedor, String klsLeche){
         AcopioEntity newData = new AcopioEntity();
         try{
             SimpleDateFormat temp = new SimpleDateFormat("yyyy-MM-dd");
@@ -67,10 +67,11 @@ public class AcopioService {
             throw new RuntimeException(ex);
         }
         newData.setTurno(turno);
-        newData.setCodigo_proveedor(Long.parseLong(id_proveedor));
-        newData.setKls_leche(Double.parseDouble(kls_leche));
+        newData.setCodigoProveedor(Long.parseLong(idProveedor));
+        newData.setKlsLeche(Double.parseDouble(klsLeche));
         guardarData(newData);
     }
+    @Generated
     public void eliminarData(ArrayList<AcopioEntity> datas){
         acopioRepository.deleteAll(datas);
     }

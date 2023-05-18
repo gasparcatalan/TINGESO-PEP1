@@ -21,7 +21,7 @@ public class LaboratorioEntity {
 
     private Double grasas;
     private Double solidos;
-    private Long codigo_proveedor;
+    private Long codigoProveedor;
 
 
 

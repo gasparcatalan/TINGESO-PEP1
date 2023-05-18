@@ -13,6 +13,7 @@ public interface ProveedorRepository extends CrudRepository<ProveedorEntity, Lon
     public ProveedorEntity findByNombre(String nombre);
     public ProveedorEntity findByCodigo(Long codigo);
 
+
     @Query("select p from ProveedorEntity  p where p.nombre = :nombre")
     ProveedorEntity findByNameCustomQuery(@Param("nombre") String nombre);
 

@@ -18,6 +18,7 @@
     </div>
     <ul class="nav navbar-nav">
       <li><a href="/">Inicio</a></li>
+      <li><a href="/crear">Agregar proveedor</a></li>
       <li><a href="/lista">Proveedores</a></li>
       <li><a href="/importLab">Importar Datos</a> </li>
     </ul>
@@ -38,7 +39,11 @@
     </thead>
     <tbody>
     <tr th:each="proveedor : ${proveedores}">
-      <td th:text="${proveedor.codigo}"></td>
+      <td>
+        <a th:href="@{/pagos/{codigo} (codigo=${proveedor.codigo})}">
+          <span th:text="${proveedor.codigo}"></span>
+        </a>
+      </td>
       <td th:text="${proveedor.nombre}"></td>
       <td th:text="${proveedor.categoria}"></td>
       <td th:text="${proveedor.retencion}"></td>
