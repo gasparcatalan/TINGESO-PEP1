@@ -1,0 +1,54 @@
+pipeline{
+    agent any
+    tools{
+        maven "maven"
+    }
+    stages{
+        stage("Build JAR FILE"){
+            steps{
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/gasparcatalan/TINGESO-PEP1']]])
+                dir("PEP1"){
+                    bat "mvn clean install"
+                }
+            }
+        }
+    
+        stage("Test"){
+            steps{
+                dir("PEP1"){
+                    bat"mvn test"
+                }
+            }
+        }
+        stage("SonarQube Analysis"){
+            steps{
+                dir("PEP1"){
+                bat"mvn clean verify sonar:sonar -Dsonar.projectKey=tingeso_pep1 -Dsonar.projectName='tingeso_pep1' -Dsonar.host.url=http://localhost:9000 -Dsonar.token=sqp_d446b53e9fca7a0b00dadae0d4edd53d25269630"
+                }
+            }
+        }
+        stage("Build Docker Image"){
+            steps{
+                dir("PEP1"){
+                    bat"docker build -t gaspitas241/tingeso_pep1 ."
+                }
+            }
+        }
+        stage("Push Docker Image"){
+            steps{
+                dir("PEP1"){
+                withCredentials([string(credentialsId: 'dckrhubpassword', variable: 'dckerpass')]) {
+                    bat"docker login -u gaspitas241 -p ${dckerpass}"
+                    
+                }
+                bat"docker push gaspitas241/tingeso_pep1"    
+                }
+            }
+        }
+    }
+    post{
+        always{
+            bat"docker logout"
+        }
+    }
+}
